@@ -17,18 +17,8 @@ div.navbar.navbar-default.navbar-static-top
           a(ui-sref='admin') Admin
 
       ul.nav.navbar-nav.navbar-right
-        li(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='signup') Sign up
-
-        li(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='login') Login
-
         li(ng-show='$ctrl.isLoggedIn()')
           p.navbar-text Hello {{ $ctrl.getCurrentUser().name }}
-
-        li(ng-show='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='settings')
-            span.glyphicon.glyphicon-cog
 
         li(ng-show='$ctrl.isLoggedIn()')
           a(ui-sref='logout') Logout

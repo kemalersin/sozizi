@@ -51,6 +51,7 @@ module.exports = function makeWebpackConfig(options) {
 
                 'angular-ui-bootstrap',
                 'angular-ui-router',
+                'angular-loading-bar',
                 'lodash'
             ]
         };

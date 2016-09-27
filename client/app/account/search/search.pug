@@ -1,0 +1,16 @@
+.container
+  .row
+    .col-md-12.search
+      h2 Find books in Goodreads
+      span.input.input--makiko(ng-class='{"input--filled": vm.query.length > 0}')
+        input.input__field.input__field--makiko(type='text', id='input-search', ng-change='vm.inputChange()', ng-model='vm.query' ng-model-options='{ debounce: 200 }')
+        label.input__label.input__label--makiko(for='input-search')
+          span.input__label-content.input__label-content--makiko Search
+.container.search-result
+  .row
+    .col-xs-12.col-sm-6.col-md-3(ng-repeat='book in vm.data.books')
+      a.thumbnail.book-image(title='{{book.title}}')
+        img(src='{{book.image_url}}')
+        .caption.text-center
+          p.book-title {{book.title}}
+          p {{book.author.name}}

@@ -8,9 +8,10 @@ import routing from './account.routes';
 import login from './login';
 import settings from './settings';
 import signup from './signup';
+import search from './search';
 import oauthButtons from '../../components/oauth-buttons';
 
-export default angular.module('soziziApp.account', [uiRouter, login, settings, signup, oauthButtons])
+export default angular.module('soziziApp.account', [uiRouter, login, settings, signup, search, oauthButtons])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

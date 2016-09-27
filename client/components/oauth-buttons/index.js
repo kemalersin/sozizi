@@ -2,7 +2,10 @@
 
 import angular from 'angular';
 
-export function OauthButtonsController($window) {
+export function OauthButtonsController($window, Auth) {
+  'ngInject';
+
+  this.isLoggedIn = Auth.isLoggedInSync;
   this.loginOauth = function(provider) {
     $window.location.href = '/auth/' + provider;
   };
