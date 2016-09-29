@@ -20,7 +20,7 @@ export default class SearchController {
     this.query = $state.params.q;
     this.currentPage = $state.params.page;
 
-    this.maxSize = 10;
+    this.maxSize = 5;
     this.itemsPerPage = 20;
   }
 

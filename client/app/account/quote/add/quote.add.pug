@@ -1,12 +1,10 @@
-.media
-  .media-left
-    img.media-object(src='{{quote.book.image_url}}')
-  .media-body
-    h3.media-heading {{quote.book.title}}
-    p {{quote.book.author.name}}
-    form
-      .form-group
-        textarea.form-control(autofocus, ng-required='true', ng-maxlength=4000, rows=15)
-      .btn-toolbar.pull-right
-        button.btn.btn-primary(type='submit') Save
-        button.btn.btn-default(type='reset') Cancel
+.media.add-quote
+  img.media-object(src='{{quote.book.small_image_url}}')
+  h3.media-heading {{quote.book.title}}
+  p {{quote.book.author.name}}
+  form
+    .form-group
+      textarea.form-control(autofocus, ng-required='true', ng-maxlength=4000, rows=14)
+    .btn-toolbar.pull-right
+      button.btn.btn-primary(type='submit') Save
+      button.btn.btn-default(type='reset') Cancel
