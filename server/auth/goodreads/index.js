@@ -9,7 +9,7 @@ var router = express.Router();
 router
   .get('/', passport.authenticate('goodreads'))
   .get('/callback', passport.authenticate('goodreads', {
-    failureRedirect: '/signup',
+    failureRedirect: '/',
     session: false
   }), setTokenCookie);
 

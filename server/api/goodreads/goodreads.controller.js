@@ -16,7 +16,7 @@ export function show(req, res) {
   request({
     uri: `${GOODREADS_API_URL}/search/index.xml`,
     qs: {
-      q: req.params.q,
+      q: req.query.q,
       page: req.query.page || 1,
       key: process.env.GOODREADS_ID
     },

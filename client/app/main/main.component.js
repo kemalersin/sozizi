@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import routing from './main.routes';
+import search from './search';
 
 export class MainController {
   $http;
@@ -13,7 +14,7 @@ export class MainController {
   }
 }
 
-export default angular.module('soziziApp.main', [uiRouter])
+export default angular.module('soziziApp.main', [uiRouter, search])
   .config(routing)
   .component('main', {
     template: require('./main.pug'),

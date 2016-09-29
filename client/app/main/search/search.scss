@@ -1,0 +1,140 @@
+$thumb-height: 140px;
+
+.search-bar {
+  font-size: 150%;
+  padding: 3em 0;
+  background: #e8e8e8;
+  text-align: center;
+
+  h2 {
+    opacity: 0.2;
+  }
+
+  .graphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: none;
+  }
+
+  .icon {
+    color: #ddd;
+    font-size: 150%;
+  }
+
+  span.input {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 1em;
+    max-width: 400px;
+    width: calc(100% - 2em);
+    vertical-align: top;
+
+    overflow: hidden;
+    background: #CBCBCB;
+  }
+
+  input {
+    position: relative;
+    display: block;
+    float: right;
+    padding: 0.8em;
+    border: none;
+    border-radius: 0;
+    font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-appearance: none; /* for box shadows to show on iOS */
+
+    width: 100%;
+    background: transparent;
+    color: #797693;
+    z-index: 10;
+    font-weight: 500;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  label {
+    display: inline-block;
+    float: right;
+    padding: 0 1em;
+    font-weight: bold;
+    font-size: 70.25%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    pointer-events: none;
+    color: #fff;
+
+    .content {
+      display: block;
+      padding: 1.5em 0 0 2.75em;
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+    }
+  }
+
+  label::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 45%;
+    left: 20px;
+    background: url(/assets/images/search.svg) no-repeat center center;
+    background-size: 100%;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+  }
+
+  input:focus + label::before,
+  .filled label::before {
+    -webkit-transform: scale3d(38, 38, 1);
+    transform: scale3d(38, 38, 1);
+  }
+}
+
+.search-result {
+  margin-top: 20px;
+
+  p.book-title {
+    font-weight: bold;
+  }
+
+  p.book-title, p.author {
+    width: 100%;
+    margin-bottom: 0;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow : ellipsis;
+    white-space: nowrap;
+  }
+
+  .thumbnail.book-image {
+    padding: 10px;
+
+    span.img-wrapper {
+      display: block;
+      height: $thumb-height;
+      line-height: $thumb-height;
+
+      img {
+        max-height: $thumb-height;
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+      }
+    }
+  }
+}

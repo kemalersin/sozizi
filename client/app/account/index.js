@@ -1,17 +1,13 @@
 'use strict';
 
 import angular from 'angular';
-
+import ngCookies from 'angular-cookies';
 import uiRouter from 'angular-ui-router';
 
 import routing from './account.routes';
-import login from './login';
-import settings from './settings';
-import signup from './signup';
-import search from './search';
-import oauthButtons from '../../components/oauth-buttons';
+import quote from './quote';
 
-export default angular.module('soziziApp.account', [uiRouter, login, settings, signup, search, oauthButtons])
+export default angular.module('soziziApp.account', [uiRouter, ngCookies, quote])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

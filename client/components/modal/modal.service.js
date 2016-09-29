@@ -73,6 +73,6 @@ export function Modal($rootScope, $uibModal) {
   };
 }
 
-export default angular.module('soziziApp')
+export default angular.module('soziziApp.Modal', [])
   .factory('Modal', Modal)
   .name;
