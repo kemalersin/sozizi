@@ -1,8 +1,3 @@
-'use strict';
+import addQuote from './add';
 
-import angular from 'angular';
-import QuoteController from './quote.controller';
-
-export default angular.module('soziziApp.quote', [])
-  .controller('QuoteController', QuoteController)
-  .name;
+export default angular.module('soziziApp.quote', [addQuote]).name;

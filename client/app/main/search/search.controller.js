@@ -28,16 +28,16 @@ export default class SearchController {
     this.search();
   }
 
-  setPage(pageNo) {
-    this.currentPage = pageNo;
-  }
-
   pageChange() {
     this.search();
   }
 
   inputChange() {
     this.search(true);
+  }
+
+  setPage(pageNo) {
+    this.currentPage = pageNo;
   }
 
   search(resetPage) {
@@ -48,7 +48,7 @@ export default class SearchController {
     var q = this.query;
     var page = this.currentPage;
 
-    this.$state.go('search', {q, page})
+    this.$state.go('search', {q, page}, {notify: false})
       .then(() => {
         if (this.query) {
           this.$http.get(`/api/goodreads/search/?q=${q}&page=${page || 1}`, {cache: true})

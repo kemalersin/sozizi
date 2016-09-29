@@ -1,9 +1,9 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~bootstrap-social/bootstrap-social.scss';
 $fa-font-path: '/assets/fonts/font-awesome/';
+
 @import '~font-awesome/scss/font-awesome';
 @import '../assets/css/loading-bar.min.css';
+@import '../assets/css/bootstrap.readable.min.css';
 
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
@@ -23,6 +23,5 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 @import 'main/main';
 @import 'main/search/search';
 @import '../components/footer/footer';
-@import '../components/modal/modal';
 @import '../components/oauth/oauth';
 /* endinject */

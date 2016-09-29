@@ -33,10 +33,21 @@ angular.module('soziziApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBoot
     navbar, oAuth, footer, account, main, constants, util, loadingBar
   ])
   .config(routeConfig)
+  .directive("keepScroll", function() {
+    return {
+      link: function (scope, el, attr, ctrl) {
+        var scrollHeight;
+
+        scope.$watchCollection('items', function (n, o) {
+          scrollHeight = scrollHeight || el[0].scrollHeight;
+          el[0].scrollTop = el[0].scrollTop - (scrollHeight - el[0].scrollHeight);
+          scrollHeight = el[0].scrollHeight;
+        });
+      }
+    }
+  })
   .run(function($rootScope, $state, Auth) {
     'ngInject';
-    // Redirect to login if route requires auth and you're not logged in
-
     $rootScope.$on('$stateChangeStart', function(event, next) {
       Auth.isLoggedIn(function(loggedIn) {
         if(next.authenticate && !loggedIn) {

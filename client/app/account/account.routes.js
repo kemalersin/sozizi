@@ -29,9 +29,13 @@ export default function routes($stateProvider) {
     .state('quote', {
       url: '/quote',
       template: require('./quote/quote.pug'),
-      controller: 'QuoteController',
-      controllerAs: 'quote',
-      authenticate: true,
       params: {book: null}
+    })
+    .state('quote.add', {
+      url: '/add',
+      template: require('./quote/add/quote.add.pug'),
+      controller: 'AddQuoteController',
+      controllerAs: 'quote',
+      authenticate: true
     });
 }

@@ -16,6 +16,7 @@ div.navbar.navbar-default.navbar-static-top
       ul.nav.navbar-nav.navbar-right
         li(ng-show='$ctrl.isLoggedIn()')
           p.navbar-text Hello {{ $ctrl.getCurrentUser().name }}
-
+        li(ng-if='$ctrl.isBookExists()', ng-class='{active: $ctrl.$state.includes("quote.add")}')
+          a(ui-sref='quote.add({book: $ctrl.getLastBook()})') Add Quote
         li(ng-show='$ctrl.isLoggedIn()')
           a(ui-sref='logout') Logout

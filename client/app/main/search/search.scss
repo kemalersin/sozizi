@@ -2,12 +2,10 @@ $thumb-height: 140px;
 
 .search-bar {
   font-size: 150%;
-  padding: 3em 0;
-  background: #e8e8e8;
-  text-align: center;
 
   h2 {
-    opacity: 0.2;
+    opacity: 0.3;
+    margin-bottom: 7px;
   }
 
   .graphic {
@@ -32,7 +30,7 @@ $thumb-height: 140px;
     vertical-align: top;
 
     overflow: hidden;
-    background: #CBCBCB;
+    background: #ddd;
   }
 
   input {
@@ -42,7 +40,6 @@ $thumb-height: 140px;
     padding: 0.8em;
     border: none;
     border-radius: 0;
-    font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-appearance: none; /* for box shadows to show on iOS */
 
     width: 100%;

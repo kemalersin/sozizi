@@ -12,7 +12,6 @@ export default function routes($stateProvider) {
       template: require('./search/search.pug'),
       controller: 'SearchController',
       controllerAs: 'search',
-      reloadOnSearch: false,
       params: {
         q: null,
         page: null
