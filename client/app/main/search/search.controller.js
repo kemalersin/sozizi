@@ -2,10 +2,11 @@
 // @flow
 
 export default class SearchController {
-  query;
-  books;
   $http;
   $state;
+
+  books;
+  query;
 
   maxSize;
   totalItems;

@@ -6,10 +6,12 @@ import angular from 'angular';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
+
 import loadingBar from 'angular-loading-bar';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+
 // import ngMessages from 'angular-messages';
 // import ngValidationMatch from 'angular-validation-match';
 
@@ -27,10 +29,11 @@ import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 
+import 'ng-notify';
 import './app.scss';
 
 angular.module('soziziApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
-    navbar, oAuth, footer, account, main, constants, util, loadingBar
+    navbar, oAuth, footer, account, main, constants, util, loadingBar, 'ngNotify'
   ])
   .config(routeConfig)
   .directive("keepScroll", function() {

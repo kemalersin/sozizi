@@ -51,3 +51,31 @@ export function show(req, res) {
     })
     .catch(handleError(res));
 }
+
+export function addQuote(req, res) {
+  var book = req.body.book,
+    body = req.body.body;
+
+  request({
+    method: 'POST',
+    uri: `${GOODREADS_API_URL}/quotes?format=xml`,
+    oauth: {
+      consumer_key: process.env.GOODREADS_ID,
+      consumer_secret: process.env.GOODREADS_SECRET,
+      token: req.user.goodreads.accessToken,
+      token_secret: req.user.goodreads.refreshToken
+    },
+    body: {
+      author_name: book.author.name,
+      author_id: book.author.id,
+      book_id: book.id,
+      body
+    },
+    json: true,
+    transform: body => {
+      return parser.toJson(body, {object: true});
+    }
+  })
+    .then(data => res.json({id: data.quote.id.$t}))
+    .catch(handleError(res));
+}

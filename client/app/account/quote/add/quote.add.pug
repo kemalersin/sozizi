@@ -1,10 +1,10 @@
 .media.add-quote
-  img.media-object(src='{{quote.book.small_image_url}}')
+  img.media-object(src='{{quote.book.image_url}}')
   h3.media-heading {{quote.book.title}}
   p {{quote.book.author.name}}
-  form
+  form(ng-submit='quote.submit()')
     .form-group
-      textarea.form-control(autofocus, ng-required='true', ng-maxlength=4000, rows=14)
+      textarea#quote-body.form-control(autofocus, ng-required='true', ng-model='quote.body', ng-maxlength=4000, rows=14)
     .btn-toolbar.pull-right
       button.btn.btn-primary(type='submit') Save
-      button.btn.btn-default(type='reset') Cancel
+      button.btn.btn-default(type='button', ng-click='quote.goBack()') Cancel

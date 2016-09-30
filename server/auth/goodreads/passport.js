@@ -18,7 +18,11 @@ export function setup(User, config) {
             name: profile.displayName,
             role: 'user',
             provider: 'goodreads',
-            goodreads: {id: profile.id}
+            goodreads: {
+              id: profile.id,
+              accessToken,
+              refreshToken
+            }
           });
 
           user.save()
