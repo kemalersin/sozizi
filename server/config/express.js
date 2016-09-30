@@ -1,7 +1,3 @@
-/**
- * Express configuration
- */
-
 'use strict';
 
 import express from 'express';
@@ -19,6 +15,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
+
 var MongoStore = connectMongo(session);
 
 export default function(app) {
@@ -45,10 +42,6 @@ export default function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
-
-  // Persist sessions with MongoStore / sequelizeStore
-  // We need to enable sessions for passport-twitter because it's an
-  // oauth 1.0 strategy, and Lusca depends on sessions
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
@@ -59,10 +52,6 @@ export default function(app) {
     })
   }));
 
-  /**
-   * Lusca - express server security
-   * https://github.com/krakenjs/lusca
-   */
   if(env !== 'test' && !process.env.SAUCE_USERNAME) {
     app.use(lusca({
       csrf: {
@@ -87,9 +76,6 @@ export default function(app) {
     const compiler = webpack(webpackConfig);
     const browserSync = require('browser-sync').create();
 
-    /**
-     * Run Browsersync and use middleware for Hot Module Replacement
-     */
     browserSync.init({
       open: false,
       logFileChanges: false,
@@ -109,10 +95,6 @@ export default function(app) {
       plugins: ['bs-fullscreen-message']
     });
 
-    /**
-     * Reload all devices when bundle is complete
-     * or send a fullscreen error message to the browser instead
-     */
     compiler.plugin('done', function(stats) {
       console.log('webpack done hook');
       if(stats.hasErrors() || stats.hasWarnings()) {

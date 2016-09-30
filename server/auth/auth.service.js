@@ -1,5 +1,5 @@
 'use strict';
-import _ from 'lodash';
+
 import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
@@ -12,19 +12,17 @@ var validateJwt = expressJwt({
 
 export function isAuthenticated() {
   return compose()
-    // Validate jwt
     .use(function(req, res, next) {
-      // allow access_token to be passed through query parameter as well
       if(req.query && req.query.hasOwnProperty('access_token')) {
         req.headers.authorization = 'Bearer ' + req.query.access_token;
       }
-     // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
+      
       if(req.query && typeof req.headers.authorization === 'undefined') {
         req.headers.authorization = 'Bearer ' + req.cookies.token;
       }
+      
       validateJwt(req, res, next);
     })
-    // Attach user to request
     .use(function(req, res, next) {
       User.findById(req.user._id).exec()
         .then(user => {

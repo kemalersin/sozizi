@@ -1,0 +1,10 @@
+/* TEAM */
+Full-stack development: Kemal Ersin YILMAZ
+Email: mail [at] kemalersin.com
+Twitter: @kemal_ersin
+
+/* SITE */
+Doctype: HTML5
+Standards: HTML5, CSS with SCSS
+Components: angular-fullstack
+Software: WebStorm
