@@ -35,11 +35,11 @@ var UserSchema = new Schema({
   },
   provider: String,
   salt: String,
-  facebook: {},
-  twitter: {},
-  google: {},
-  github: {},
-  goodreads: {}
+  goodreads: {
+    id: String,
+    accessToken: String,
+    refreshToken: String
+  }
 });
 
 /**

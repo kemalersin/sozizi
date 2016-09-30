@@ -3,11 +3,11 @@
 
 module.exports = {
   ip: process.env.OPENSHIFT_NODEJS_IP
-    || process.env.ip
+    || process.env.IP
     || undefined,
 
   port: process.env.OPENSHIFT_NODEJS_PORT
-    || process.env.port
+    || process.env.PORT
     || 8080,
 
   mongo: {

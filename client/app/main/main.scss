@@ -1,6 +1,10 @@
 @import 'search/search';
 @import '../account/quote/add/quote.add';
 
+.container.info {
+  margin-top: 75px;
+}
+
 @mixin no-padding($side) {
   @if $side == 'all' {
     .no-padding {
