@@ -26,16 +26,22 @@ export default function routes($stateProvider) {
         $state.go(referrer);
       }
     })
-    .state('quote', {
-      url: '/quote',
-      template: require('./quote/quote.pug'),
+    .state('quotes', {
+      url: '/quotes',
+      template: require('./quotes/quotes.pug'),
       params: {book: null}
     })
-    .state('quote.add', {
+    .state('quotes.add', {
       url: '/add',
-      template: require('./quote/add/quote.add.pug'),
+      template: require('./quotes/add/quotes.add.pug'),
       controller: 'AddQuoteController',
       controllerAs: 'quote',
       authenticate: true
-    });
+    })
+    .state('quotes.show', {
+      url: '/:id',
+      template: require('./quotes/show/quotes.show.pug'),
+      controller: 'ShowQuoteController',
+      controllerAs: 'quote'
+    })
 }

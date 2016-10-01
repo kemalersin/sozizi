@@ -5,5 +5,6 @@ export function routeConfig($urlRouterProvider, $locationProvider, $anchorScroll
 
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(true);
+  $locationProvider.hashPrefix('!');
   $anchorScrollProvider.disableAutoScrolling();
 }

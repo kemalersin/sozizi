@@ -1,0 +1,51 @@
+.quote {
+  padding-bottom: 30px;
+
+  .media a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    max-height: 65px;
+  }
+
+  textarea {
+    font-size: 24px;
+  }
+
+  blockquote {
+    background-color: #fbfbfb;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 0;
+    padding: 20px 20px 0 20px;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+
+    p {
+      display: inline;
+      font-size: 1em;
+    }
+  }
+
+  blockquote:before,
+  blockquote:after {
+    color: #ccc;
+    font-size: 4em;
+    line-height: 0.01em;
+  }
+
+  blockquote:before{
+    content: open-quote;
+    margin-right: 0.1em;
+    vertical-align: -0.4em;
+  }
+
+  blockquote:after{
+    content: close-quote;
+    margin-left: 0.1em;
+    vertical-align: -0.65em;
+  }
+}

@@ -4,6 +4,8 @@ import _ from 'lodash';
 import parser from 'xml2json';
 import request from 'request-promise';
 
+import User from '../user/user.model';
+
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
 
@@ -12,7 +14,18 @@ function handleError(res, statusCode) {
   };
 }
 
-export function show(req, res) {
+var handleEntityNotFound = (res, err) => {
+  return entity => {
+    if (!entity) {
+      res.status(404).send(err);
+      return null;
+    }
+
+    return entity;
+  };
+}
+
+export function search(req, res) {
   request({
     uri: `${GOODREADS_API_URL}/search/index.xml`,
     qs: {
@@ -52,9 +65,20 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-export function addQuote(req, res) {
+export function show(req, res) {
+  User.findOne(
+    {'quotes.id': req.params.id},
+    'name goodreads.id quotes.$'
+  )
+    .then(handleEntityNotFound(res, 'Quote not found.'))
+    .then(user => res.json(user))
+    .catch(handleError(res));
+}
+
+export function add(req, res) {
   var book = req.body.book,
-    body = req.body.body;
+    body = req.body.body,
+    date = new Date();
 
   request({
     method: 'POST',
@@ -76,6 +100,15 @@ export function addQuote(req, res) {
       return parser.toJson(body, {object: true});
     }
   })
-    .then(data => res.json({id: data.quote.id.$t}))
+    .then(data => {
+      var id = data.quote.id.$t * 1;
+
+      User.update(
+        {'_id': req.user.id, 'quotes.id': {$ne: id}},
+        {$addToSet: {'quotes': {id, body, book, date}}}
+      ).exec();
+
+      res.json({id});
+    })
     .catch(handleError(res));
 }

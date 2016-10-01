@@ -1,8 +1,5 @@
-@import 'search/search';
-@import '../account/quote/add/quote.add';
-
-.container.info {
-  margin-top: 75px;
+.info {
+  margin: 75px 0;
 }
 
 @mixin no-padding($side) {

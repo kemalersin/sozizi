@@ -6,7 +6,8 @@ import * as auth from '../../auth/auth.service';
 
 var router = express.Router();
 
-router.get('/search', controller.show);
-router.post('/add-quote', auth.isAuthenticated(), controller.addQuote);
+router.get('/search', controller.search);
+router.get('/quotes/:id', controller.show);
+router.post('/quotes/add', auth.isAuthenticated(), controller.add);
 
 module.exports = router;

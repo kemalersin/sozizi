@@ -1,0 +1,40 @@
+update-title(title='{{quote.title}}')
+update-meta(property='og:url' content='{{quote.url}}')
+update-meta(property='og:title' content='{{quote.title}}')
+update-meta(property='og:description' content='{{quote.description}}')
+
+.container(ng-if='quote.notFound')
+  .row
+    .col-md-12.text-center
+      h1 Redirecting...
+
+.jumbotron.quote(ng-if='!quote.notFound')
+  .media
+    img.media-object(src='{{quote.book.image_url}}')
+    h3.media-heading
+      a(href='https://www.goodreads.com/book/show/{{quote.book.id}}', target='_blank')
+        | {{quote.book.title}}
+    p
+      a(href='https://www.goodreads.com/author/show/{{quote.book.author.id}}', target='_blank')
+        | {{quote.book.author.name}}
+    hr
+    blockquote
+      | {{quote.body}}
+      p
+    hr
+    .row
+      .col-md-6
+        ul.list-inline
+          li
+            a.btn.text-muted.no-padding-left(href='https://www.goodreads.com/user/show/{{quote.user.goodreads.id}}', target='_blank')
+              i.glyphicon.glyphicon-pencil
+              | &nbsp;
+              | {{quote.user.name}}
+          li
+            a.btn.text-muted.no-padding-left(href='https://www.goodreads.com/quotes/{{quote.id}}', target='_blank')
+              i.glyphicon.glyphicon-time
+              | &nbsp;
+              span(am-time-ago='quote.date')
+      .col-md-6.text-right
+        button.btn.btn-default(type='button', ng-click='quote.share()')
+          i.fa.fa-facebook &nbsp;Share

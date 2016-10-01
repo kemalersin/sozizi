@@ -5,9 +5,9 @@ import ngCookies from 'angular-cookies';
 import uiRouter from 'angular-ui-router';
 
 import routing from './account.routes';
-import quote from './quote';
+import quotes from './quotes';
 
-export default angular.module('soziziApp.account', [uiRouter, ngCookies, quote])
+export default angular.module('soziziApp.account', [uiRouter, ngCookies, quotes])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

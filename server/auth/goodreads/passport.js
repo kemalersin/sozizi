@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import passport from 'passport';
 import {Strategy as GoodreadsStrategy} from 'passport-goodreads';
 
@@ -11,7 +12,7 @@ export function setup(User, config) {
       User.findOne({'goodreads.id': profile.id}).exec()
         .then(user => {
           if (user) {
-            return done(null, user);
+            return done(null, _.omit(user, ['quotes']));
           }
 
           user = new User({

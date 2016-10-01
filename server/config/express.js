@@ -15,6 +15,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
+import prerender from 'prerender-node';
 
 var MongoStore = connectMongo(session);
 
@@ -41,6 +42,7 @@ export default function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+  app.use(prerender.set('prerenderToken', process.env.PRERENDER_TOKEN));
 
   app.use(session({
     secret: config.secrets.session,

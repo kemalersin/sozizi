@@ -1,6 +1,5 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
 $fa-font-path: '/assets/fonts/font-awesome/';
-
 @import '~font-awesome/scss/font-awesome';
 @import '../assets/css/ng-notify.min.css';
 @import '../assets/css/loading-bar.min.css';
@@ -22,7 +21,7 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 // Component styles are injected through gulp
 /* inject:scss */
 
-@import 'account/quote/add/quote.add';
+@import 'account/quotes/quotes';
 
 @import 'main/main';
 

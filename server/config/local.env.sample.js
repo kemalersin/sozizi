@@ -14,5 +14,6 @@ module.exports = {
 
   // Control debug level for modules using visionmedia/debug
   DEBUG: '',
+  PRERENDER_TOKEN: 'token',
   MONGODB_URI: 'mongodb://localhost/sozizi',
 };

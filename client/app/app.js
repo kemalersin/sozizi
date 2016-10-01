@@ -8,6 +8,7 @@ import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 
 import loadingBar from 'angular-loading-bar';
+import '../assets/js/update-meta.min';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -30,11 +31,13 @@ import constants from './app.constants';
 import util from '../components/util/util.module';
 
 import 'ng-notify';
+import 'angular-moment';
+
 import './app.scss';
 
 angular.module('soziziApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
-    navbar, oAuth, footer, account, main, constants, util, loadingBar, 'ngNotify'
-  ])
+    navbar, oAuth, footer, account, main, constants, util, loadingBar, 'updateMeta', 'ngNotify', 'angularMoment'
+])
   .config(routeConfig)
   .directive("keepScroll", function() {
     return {
@@ -49,8 +52,11 @@ angular.module('soziziApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBoot
       }
     }
   })
-  .run(function($rootScope, $state, Auth) {
+  .run(function($rootScope, $window, $state, Auth, amMoment) {
     'ngInject';
+
+    amMoment.changeLocale('en');
+
     $rootScope.$on('$stateChangeStart', function(event, next) {
       Auth.isLoggedIn(function(loggedIn) {
         if(next.authenticate && !loggedIn) {

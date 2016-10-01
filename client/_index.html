@@ -7,17 +7,13 @@
     <meta name="viewport" content="width=device-width">
 
     <meta property="og:type" content="website">
+
     <meta property="og:url" content="http://sozizi.herokuapp.com">
     <meta property="og:title" content="Sozizi">
     <meta property="og:description" content="Find books and create quotes easily.">
     <meta property="og:image" content="">
 
-    <meta name="twitter:site" content="@kemal_ersin">
-    <meta name="twitter:creator" content="@kemal_ersin">
-    <meta name="twitter:domain" content="http://sozizi.herokuapp.com">
-    <meta name="twitter:title" content="Soizi">
-    <meta name="twitter:description" content="Find books and create quotes easily.">
-    <meta name="twitter:image:src" content="">
+    <meta property="fb:app_id" content="1107440935971237"/>
 
     <title>Sozizi</title>
 
@@ -37,6 +33,17 @@
 
       ga('create', 'UA-85008937-1');
       ga('send', 'pageview');
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+
+        if (d.getElementById(id)) return;
+
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/tr_TR/sdk.js#xfbml=1&version=v2.6&appId=1107440935971237";
+
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     </script>
 
     <navbar></navbar>
