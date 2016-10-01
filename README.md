@@ -17,7 +17,7 @@ Eksikleri ve hataları çok. Bir kısmının farkındayım ve bunları zaman iç
 
 Ancak şunu çok rahat söyleyebilirim ki AngularJS, tartışmaya açık bir takım konuları göz ardı edersek front-end'te hayat kurtaran bir framework. Açıkçası, meslek yaşamımım son yılları için konuşmamız gerekirse, **JQuery** ve **Ext JS** ile harcadığım zaman için üzülüyorum; Angular Full-Stack çatısını kullanarak öğrendiğim ve deneyimlediğim şeyler, ve Angular'ın bunları nasıl kolay bir hale getirdiğini görmek bir yazılımcı olarak ufkumu fezaya taşıdı.
 
-Sisteminizde **Node.js**, **Yeoman** ve **Gulp** yüklüyse ve çalışan bir **MongoDB** servisiniz varsa, projeyi klonladıktan sonra uygulamayı başlatmak için `node install` ve `gulp serve` komutlarını vermeniz yeterli.
+Sisteminizde **Node.js**, **Yeoman** ve **Gulp** yüklüyse ve çalışan bir **MongoDB** servisiniz varsa, projeyi klonladıktan sonra uygulamayı başlatmak için `npm install` ve `gulp serve` komutlarını vermeniz yeterli.
 
 **Not:** Sozizi, **Heroku**'da ücretsiz dyno üzerinde çalıştığı için, belirli bir süre erişim olmazsa uygulama Heroku tarafından bekleme durumuna geçiriliyor. Bu nedenle zaman zaman siteye ilk erişim yavaş olabilir.
 
