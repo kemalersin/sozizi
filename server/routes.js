@@ -9,7 +9,7 @@ export default function(app) {
 
   app.use('/auth', require('./auth').default);
 
-  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
+  app.route('/:url(humans.txt|api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
   app.route('/*')
