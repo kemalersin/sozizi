@@ -2,6 +2,11 @@
   margin: 75px 0;
 }
 
+a.text-default {
+  color: inherit;
+  text-decoration: none;
+}
+
 @mixin no-padding($side) {
   @if $side == 'all' {
     .no-padding {

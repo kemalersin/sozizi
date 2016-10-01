@@ -12,10 +12,10 @@ update-meta(property='og:description' content='{{quote.description}}')
   .media
     img.media-object(src='{{quote.book.image_url}}')
     h3.media-heading
-      a(href='https://www.goodreads.com/book/show/{{quote.book.id}}', target='_blank')
+      a.text-default(href='https://www.goodreads.com/book/show/{{quote.book.id}}', target='_blank')
         | {{quote.book.title}}
     p
-      a(href='https://www.goodreads.com/author/show/{{quote.book.author.id}}', target='_blank')
+      a.text-default(href='https://www.goodreads.com/author/show/{{quote.book.author.id}}', target='_blank')
         | {{quote.book.author.name}}
     hr
     blockquote
