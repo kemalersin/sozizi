@@ -2,7 +2,7 @@
 
 import angular from 'angular';
 
-// import ngAnimate from 'angular-animate';
+import ngAnimate from 'angular-animate';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
@@ -13,18 +13,17 @@ import '../assets/js/update-meta.min';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 
-// import ngMessages from 'angular-messages';
-// import ngValidationMatch from 'angular-validation-match';
-
-
 import {
   routeConfig
 } from './app.config';
 
 import _Auth from '../components/auth/auth.module';
+
 import navbar from '../components/navbar/navbar.component';
+import search from '../components/search/search.component';
 import oAuth from '../components/oauth/oauth.component';
 import footer from '../components/footer/footer.component';
+
 import account from './account';
 import main from './main/main.component';
 import constants from './app.constants';
@@ -35,8 +34,9 @@ import 'angular-moment';
 
 import './app.scss';
 
-angular.module('soziziApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
-    navbar, oAuth, footer, account, main, constants, util, loadingBar, 'updateMeta', 'ngNotify', 'angularMoment'
+angular.module('soziziApp', [ngAnimate, ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
+    navbar, search, oAuth, footer, account, main, constants, util, loadingBar,
+    'updateMeta', 'ngNotify', 'angularMoment'
 ])
   .config(routeConfig)
   .directive("keepScroll", function() {

@@ -6,7 +6,15 @@ export default function routes($stateProvider) {
   $stateProvider
     .state('login', {
       url: '/login',
-      template: require('./login/login.pug'),
+      template: `
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1>Please wait...</h1>
+            </div>
+          </div>
+        </div>
+      `,
       controller($window) {
         'ngInject';
 

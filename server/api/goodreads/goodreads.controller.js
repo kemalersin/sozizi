@@ -59,7 +59,7 @@ export function search(req, res) {
         start: search['results-start'],
         end: search['results-end'],
         total: search['total-results'],
-        books
+        items: books
       });
     })
     .catch(handleError(res));

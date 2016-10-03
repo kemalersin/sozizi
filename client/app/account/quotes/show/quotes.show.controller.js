@@ -4,20 +4,7 @@
 import _ from 'lodash';
 
 export default class ShowQuoteController {
-  $http;
-  $window;
-
-  id;
-  user;
-  book;
-  body;
-  date;
-  notFound;
-
-  url;
-  title;
-  image;
-  description;
+  initalized = false;
 
   constructor($http, $window, $stateParams) {
     'ngInject'
@@ -43,6 +30,8 @@ export default class ShowQuoteController {
         this.title = `Sozizi: ${quote.book.author.name} | ${quote.book.title}`;
         this.description = quote.body;
         this.image = quote.book.image_url.replace('m/', 'l/');
+
+        this.initalized = true;
       })
       .catch((e) => {
         if (e.status === 404) {

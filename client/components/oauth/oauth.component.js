@@ -8,7 +8,7 @@ export function OauthController(Auth) {
   this.isLoggedIn = Auth.isLoggedInSync;
 }
 
-export default angular.module('soziziApp.oauthButtons', [])
+export default angular.module('soziziApp.oauth', [])
   .directive('oauth', function() {
     return {
       template: require('./oauth.pug'),

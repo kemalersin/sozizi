@@ -1,0 +1,38 @@
+.jumbotron.search-bar.text-center
+  h2 {{search.label}}
+  span.input(ng-class='{"filled": search.query.length > 0}')
+    input(
+      type='text',
+      id='input-search',
+      ng-change='search.inputChange()',
+      ng-model='search.query'
+      ng-model-options='{debounce: 500}'
+    )
+    label(for='input-search')
+      span.content Search
+
+div(keep-scroll)
+  .search-result
+    .row
+      .col-md-12
+        ul.pagination-sm(
+          uib-pagination,
+          ng-if='search.totalItems',
+          total-items='search.totalItems',
+          ng-model='search.currentPage',
+          max-size='search.maxSize',
+          items-per-page='search.itemsPerPage',
+          boundary-link-numbers='true',
+          rotate='false',
+          ng-change='search.pageChange()'
+        )
+      .col-xs-12.col-sm-6.col-md-3.text-center(
+        ng-if='search.type=="book"',
+        ng-repeat='book in search.items'
+      )
+        a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
+          span.img-wrapper
+            img(src='{{book.image_url}}')
+          .caption
+            p.book-title {{book.title}}
+            p.author {{book.author.name}}

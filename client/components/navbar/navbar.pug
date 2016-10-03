@@ -1,22 +1,22 @@
 div.navbar.navbar-default.navbar-static-top
   div.container
     div.navbar-header
-      button.navbar-toggle(type='button', ng-click='$ctrl.isCollapsed = !$ctrl.isCollapsed')
+      button.navbar-toggle(type='button', ng-click='navbar.isCollapsed = !navbar.isCollapsed')
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/') sozizi
 
-    div#navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
+    div#navbar-main.navbar-collapse.collapse(uib-collapse='navbar.isCollapsed')
       ul.nav.navbar-nav
-        li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
+        li(ng-repeat='item in navbar.menu', ui-sref-active='active')
           a(ui-sref='{{item.state}}') {{item.title}}
 
       ul.nav.navbar-nav.navbar-right
-        li(ng-show='$ctrl.isLoggedIn()')
-          p.navbar-text Hello {{ $ctrl.getCurrentUser().name }}
-        li(ng-if='$ctrl.isBookExists()', ng-class='{active: $ctrl.$state.includes("quotes.add")}')
-          a(ui-sref='quotes.add({book: $ctrl.getLastBook()})') Add Quote
-        li(ng-show='$ctrl.isLoggedIn()')
+        li(ng-show='navbar.isLoggedIn()')
+          p.navbar-text Hello {{ navbar.getCurrentUser().name }}
+        li(ng-if='navbar.isBookExists()', ng-class='{active: navbar.$state.includes("quotes.add")}')
+          a(ui-sref='quotes.add({book: navbar.getLastBook()})') Add Quote
+        li(ng-show='navbar.isLoggedIn()')
           a(ui-sref='logout') Logout

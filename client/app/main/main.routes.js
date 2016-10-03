@@ -5,16 +5,16 @@ export default function routes($stateProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    template: '<main></main>'
+    template: '<main />'
   })
     .state('search', {
       url: '/search?q&{page:int}',
-      template: require('./search/search.pug'),
-      controller: 'SearchController',
-      controllerAs: 'search',
-      params: {
-        q: null,
-        page: null
-      }
+      template: `
+        <search
+          type="book"
+          label="Find books on Goodreads"
+          url="/api/goodreads/search/" />
+      `,
+      params: {q: null, page: null}
     });
 }

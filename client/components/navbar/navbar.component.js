@@ -3,7 +3,7 @@
 
 import angular from 'angular';
 
-export class NavbarComponent {
+class NavbarComponent {
   menu = [{
     'title': 'Home',
     'state': 'main'
@@ -11,13 +11,6 @@ export class NavbarComponent {
     'title': 'Search',
     'state': 'search'
   }];
-
-  $state;
-
-  isLoggedIn: Function;
-  isBookExists: Function;
-  getCurrentUser: Function;
-  getLastBook: Function;
 
   isCollapsed = true;
 
@@ -35,6 +28,7 @@ export class NavbarComponent {
 export default angular.module('directives.navbar', [])
   .component('navbar', {
     template: require('./navbar.pug'),
-    controller: NavbarComponent
+    controller: NavbarComponent,
+    controllerAs: 'navbar'
   })
   .name;

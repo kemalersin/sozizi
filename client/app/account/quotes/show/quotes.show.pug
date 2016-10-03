@@ -8,7 +8,7 @@ update-meta(property='og:description' content='{{quote.description}}')
     .col-md-12.text-center
       h1 Redirecting...
 
-.jumbotron.quote(ng-if='!quote.notFound')
+.jumbotron.quote(ng-if='!quote.notFound && quote.initalized')
   .media
     img.media-object(src='{{quote.book.image_url}}')
     h3.media-heading
