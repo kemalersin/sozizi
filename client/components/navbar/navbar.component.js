@@ -4,6 +4,8 @@
 import angular from 'angular';
 
 class NavbarComponent {
+  $state;
+
   menu = [{
     'title': 'Home',
     'state': 'main'
@@ -11,6 +13,11 @@ class NavbarComponent {
     'title': 'Search',
     'state': 'search'
   }];
+
+  isLoggedIn: Function;
+  isBookExists: Function;
+  getCurrentUser: Function;
+  getLastBook: Function;
 
   isCollapsed = true;
 

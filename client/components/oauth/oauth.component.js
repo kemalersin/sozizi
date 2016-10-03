@@ -2,7 +2,7 @@
 
 import angular from 'angular';
 
-export function OauthController(Auth) {
+function OauthController(Auth) {
   'ngInject';
 
   this.isLoggedIn = Auth.isLoggedInSync;
@@ -11,13 +11,13 @@ export function OauthController(Auth) {
 export default angular.module('soziziApp.oauth', [])
   .directive('oauth', function() {
     return {
-      template: require('./oauth.pug'),
       restrict: 'EA',
-      controller: OauthController,
-      controllerAs: 'oa',
       scope: {
         classes: '@'
-      }
+      },
+      template: require('./oauth.pug'),
+      controller: OauthController,
+      controllerAs: 'oa'
     };
   })
   .name;

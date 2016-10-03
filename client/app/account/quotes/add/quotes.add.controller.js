@@ -4,7 +4,9 @@
 export default class AddQuoteController {
   $http;
   $state;
+
   ngNotify;
+
   book;
   body;
 
@@ -33,7 +35,7 @@ export default class AddQuoteController {
       book: this.book,
       body: this.body
     }).then(response => {
-      var url = this.$state.href('quotes.show', {id: response.data.id}, {absolute: true});
+      let url = this.$state.href('quotes.show', {id: response.data.id}, {absolute: true});
 
       this.body = null;
       this.ngNotify.set(

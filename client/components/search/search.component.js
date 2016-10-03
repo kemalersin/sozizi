@@ -3,6 +3,22 @@
 import angular from 'angular';
 
 class SearchController {
+  $http;
+  $state;
+
+  url;
+  label;
+  type;
+
+  query;
+  currentPage;
+
+  items;
+  totalItems;
+
+  maxSize = 5;
+  itemsPerPage = 20;
+
   constructor($scope, $http, $state) {
     'ngInject';
 
@@ -15,9 +31,6 @@ class SearchController {
 
     this.query = $state.params.q;
     this.currentPage = $state.params.page;
-
-    this.maxSize = 5;
-    this.itemsPerPage = 20;
   }
 
   $onInit() {
@@ -42,14 +55,14 @@ class SearchController {
     }
 
     var q = this.query;
-    var page = this.currentPage || 1;
+    var page = this.currentPage;
 
     this.$state.go(this.$state.current.name, {q, page}, {notify: false})
       .then(() => {
         if (this.query) {
           this.$http.get(this.url, {
             cache: true,
-            params: {q, page}
+            params: {q, page: page || 1}
           })
             .then(response => {
               this.items = response.data.items;

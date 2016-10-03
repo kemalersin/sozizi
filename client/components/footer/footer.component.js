@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-export class FooterComponent {}
+class FooterComponent {}
 
 export default angular.module('directives.footer', [])
   .component('footer', {
