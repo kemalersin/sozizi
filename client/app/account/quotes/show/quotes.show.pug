@@ -12,10 +12,10 @@ update-meta(property='og:description' content='{{quote.description}}')
   .media
     img.media-object(src='{{quote.book.image_url}}')
     h3.media-heading
-      a.text-default(href='https://www.goodreads.com/book/show/{{quote.book.id}}', target='_blank')
+      a.text-default(ui-sref='goodreads.book({id: quote.book.id})')
         | {{quote.book.title}}
     p
-      a.text-default(href='https://www.goodreads.com/author/show/{{quote.book.author.id}}', target='_blank')
+      a.text-default(ui-sref='goodreads.author({id: quote.book.author.id})')
         | {{quote.book.author.name}}
     hr
     blockquote
@@ -26,12 +26,12 @@ update-meta(property='og:description' content='{{quote.description}}')
       .col-md-6
         ul.list-inline
           li
-            a.btn.text-muted.no-padding-left(href='https://www.goodreads.com/user/show/{{quote.user.goodreads.id}}', target='_blank')
+            a.btn.text-muted.no-padding-left(ui-sref='goodreads.user({id: quote.user.goodreads.id})')
               i.glyphicon.glyphicon-pencil
               | &nbsp;
               | {{quote.user.name}}
           li
-            a.btn.text-muted.no-padding-left(href='https://www.goodreads.com/quotes/{{quote.id}}', target='_blank')
+            a.btn.text-muted.no-padding-left(ui-sref='goodreads.quotes({id: quote.id})')
               i.glyphicon.glyphicon-time
               | &nbsp;
               span(am-time-ago='quote.date')

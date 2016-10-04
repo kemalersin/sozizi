@@ -39,6 +39,18 @@ angular.module('soziziApp', [ngAnimate, ngCookies, ngResource, ngSanitize, uiRou
     'updateMeta', 'ngNotify', 'angularMoment'
 ])
   .config(routeConfig)
+  .directive('a', function() {
+    return {
+      restrict: 'E',
+      link: function(scope, el, attr, ctrl) {
+        var a = el[0];
+
+        if (a.hostname != location.hostname) {
+          a.target = '_blank';
+        }
+      }
+    }
+  })
   .directive("keepScroll", function() {
     return {
       link: function (scope, el, attr, ctrl) {
