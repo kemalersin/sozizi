@@ -11,11 +11,30 @@ export default function routes($stateProvider) {
       url: '/search?q&{page:int}',
       template: `
         <search
-          type="book"
-          label="Find books on Goodreads"
-          url="/api/goodreads/search/" />
+          type="books"
+          label="Find books on Goodreads" />
       `,
-      params: {q: null, page: null}
+      params: {
+        q: null,
+        page: null
+      }
+    })
+    .state('archive', {
+      url: '/archive/:userId?q&{page:int}',
+      template: `
+        <search
+          type="quotes",
+          auto-load="true",
+          label="Search quotes in archive" />
+      `,
+      params: {
+        userId: {
+          value: null,
+          squash: true
+        },
+        q: null,
+        page: null
+      }
     })
     .state('goodreads', {
       url: 'https://www.goodreads.com'

@@ -21,7 +21,7 @@ class NavbarComponent {
 
   isCollapsed = true;
 
-  constructor(Auth, $state, $cookies) {
+  constructor($state, $cookies, Auth) {
     'ngInject';
 
     this.$state = $state;

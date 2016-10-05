@@ -53,6 +53,7 @@ module.exports = function makeWebpackConfig(options) {
                 'angular-ui-router',
                 'angular-loading-bar',
                 'angular-moment',
+                'angulargrid',
                 'lodash',
                 'ng-notify'
             ]

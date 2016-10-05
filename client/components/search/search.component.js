@@ -1,16 +1,19 @@
 'use strict';
 
+import _ from 'lodash';
 import angular from 'angular';
 
 class SearchController {
   $http;
   $state;
 
-  url;
   label;
   type;
+  autoLoad;
+  url;
 
   query;
+  userId;
   currentPage;
 
   items;
@@ -25,12 +28,14 @@ class SearchController {
     this.$http = $http;
     this.$state = $state;
 
-    this.url = $scope.url;
     this.label = $scope.label;
     this.type = $scope.type;
+    this.autoLoad = $scope.autoLoad;
+    this.url = `/api/goodreads/${this.type}`;
 
     this.query = $state.params.q;
     this.currentPage = $state.params.page;
+    this.userId = $state.params.userId;
   }
 
   $onInit() {
@@ -50,19 +55,21 @@ class SearchController {
   }
 
   search(resetPage) {
-    if (resetPage) {
-      this.currentPage = null;
+    var params = {
+      q: this.query,
+      page: resetPage ? null : this.currentPage
+    };
+
+    if (this.userId) {
+      _.extend(params, {userId: this.userId});
     }
 
-    var q = this.query;
-    var page = this.currentPage;
-
-    this.$state.go(this.$state.current.name, {q, page}, {notify: false})
+    this.$state.go(this.$state.current.name, params, {notify: false})
       .then(() => {
-        if (this.query) {
+        if (this.query || this.autoLoad) {
           this.$http.get(this.url, {
-            cache: true,
-            params: {q, page: page || 1}
+            params,
+            cache: true
           })
             .then(response => {
               this.items = response.data.items;
@@ -84,7 +91,7 @@ export default angular.module('soziziApp.search', [])
       scope: {
         label: '@',
         type: '@',
-        url: '@'
+        autoLoad: '@'
       },
       template: require('./search.pug'),
       controller: SearchController,

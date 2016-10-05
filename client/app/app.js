@@ -7,6 +7,7 @@ import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 
+import angularGrid from 'angulargrid';
 import loadingBar from 'angular-loading-bar';
 import '../assets/js/update-meta.min';
 
@@ -35,7 +36,7 @@ import 'angular-moment';
 import './app.scss';
 
 angular.module('soziziApp', [ngAnimate, ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
-    navbar, search, oAuth, footer, account, main, constants, util, loadingBar,
+    navbar, search, oAuth, footer, account, main, constants, util, angularGrid, loadingBar,
     'updateMeta', 'ngNotify', 'angularMoment'
 ])
   .config(routeConfig)

@@ -12,6 +12,8 @@ div.navbar.navbar-default.navbar-static-top
       ul.nav.navbar-nav
         li(ng-repeat='item in navbar.menu', ui-sref-active='active')
           a(ui-sref='{{item.state}}') {{item.title}}
+        li(ui-sref-active='active')
+          a(ng-if='navbar.isLoggedIn()', ui-sref='archive') Archive
 
       ul.nav.navbar-nav.navbar-right
         li(ng-show='navbar.isLoggedIn()')

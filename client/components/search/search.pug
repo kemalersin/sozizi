@@ -26,13 +26,37 @@ div(keep-scroll)
           rotate='false',
           ng-change='search.pageChange()'
         )
-      .col-xs-12.col-sm-6.col-md-3.text-center(
-        ng-if='search.type=="book"',
-        ng-repeat='book in search.items'
-      )
-        a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
-          span.img-wrapper
-            img(src='{{book.image_url}}')
-          .caption
-            p.book-title {{book.title}}
-            p.author {{book.author.name}}
+      .col-md-12(ng-if='search.type==="books"')
+        .row
+          .col-xs-12.col-sm-6.col-md-3.text-center(ng-repeat='book in search.items')
+            a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
+              span.img-wrapper
+                img(src='{{book.image_url}}')
+              .caption
+                p.book-title {{book.title}}
+                p.author {{book.author.name}}
+
+      .container
+        .col-md-12(
+          angular-grid='search.items',
+          ag-grid-width='300',
+          ag-gutter-size='10',
+          ag-performant-scroll='true',
+          ng-if='search.type==="quotes"'
+        )
+          .well.quote(ng-repeat='quote in search.items')
+            .media
+              h4.media-heading
+                a.text-default(ui-sref='goodreads.book({id: quote.book.id})')
+                  | {{quote.book.title}}
+              p
+                a.text-default(ui-sref='goodreads.author({id: quote.book.author.id})')
+                  | {{quote.book.author.name}}
+              blockquote
+                | {{quote.body}}
+                p
+              .media-bottom.text-right
+                a.btn.text-muted.no-padding-left(ui-sref='quotes.show({id: quote.id})')
+                  i.glyphicon.glyphicon-time
+                  | &nbsp;
+                  span(am-time-ago='quote.date')
