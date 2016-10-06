@@ -12,7 +12,8 @@ export default function routes($stateProvider) {
       template: `
         <search
           type="books"
-          label="Find books on Goodreads" />
+          label="Find books on Goodreads"
+          cache="true" />
       `,
       params: {
         q: null,
@@ -23,8 +24,9 @@ export default function routes($stateProvider) {
       url: '/archive/:userId?q&{page:int}',
       template: `
         <search
-          type="archive",
-          auto-load="true",
+          type="archive"
+          auto-load="true"
+          infinite-scroll="true"
           label="Search quotes in archive" />
       `,
       params: {

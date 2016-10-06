@@ -10,31 +10,31 @@ update-meta(property='og:description' content='{{quote.description}}')
 
 .jumbotron.quote(ng-if='!quote.notFound && quote.initalized')
   .media
-    img.media-object(src='{{quote.book.image_url}}')
+    img.media-object(src='{{quote.data.book.image_url}}')
     h3.media-heading
-      a.text-default(ui-sref='goodreads.book({id: quote.book.id})')
-        | {{quote.book.title}}
+      a.text-default(ui-sref='goodreads.book({id: quote.data.book.id})')
+        | {{quote.data.book.title}}
     p
-      a.text-default(ui-sref='goodreads.author({id: quote.book.author.id})')
-        | {{quote.book.author.name}}
+      a.text-default(ui-sref='goodreads.author({id: quote.data.book.author.id})')
+        | {{quote.data.book.author.name}}
     hr
     blockquote
-      | {{quote.body}}
+      | {{quote.data.body}}
       p
     hr
     .row
       .col-md-6
         ul.list-inline
           li
-            a.btn.text-muted.no-padding-left(ui-sref='goodreads.user({id: quote.user.goodreads.id})')
+            a.btn.text-muted.no-padding-left(ui-sref='goodreads.user({id: quote.data.userId})')
               i.glyphicon.glyphicon-pencil
               | &nbsp;
-              | {{quote.user.name}}
+              | {{quote.data.userName}}
           li
-            a.btn.text-muted.no-padding-left(ui-sref='goodreads.quotes({id: quote.id})')
+            a.btn.text-muted.no-padding-left(ui-sref='goodreads.quotes({id: quote.data.id})')
               i.glyphicon.glyphicon-time
               | &nbsp;
-              span(am-time-ago='quote.date')
+              span(am-time-ago='quote.data.date')
       .col-md-6.text-right
         button.btn.btn-default(type='button', ng-click='quote.share()')
           i.fa.fa-facebook &nbsp;Share

@@ -1,16 +1,10 @@
 'use strict';
 // @flow
 
-import _ from 'lodash';
-
 export default class ShowQuoteController {
   $http;
 
-  id;
-  user;
-  body;
-  book;
-  date;
+  data;
 
   url;
   title;
@@ -30,14 +24,7 @@ export default class ShowQuoteController {
   $onInit() {
     this.$http.get(`/api/goodreads/quotes/${this.id}`, {cache: true})
       .then(response => {
-        let user = response.data;
-        let quote = user.quotes[0];
-
-        this.user = _.pick(user, ['name', 'goodreads']);
-
-        this.body = quote.body;
-        this.book = quote.book;
-        this.date = quote.date;
+        let quote = this.data = response.data;
 
         this.url = window.location.href;
         this.title = `Sozizi: ${quote.book.author.name} | ${quote.book.title}`;

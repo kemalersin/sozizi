@@ -26,6 +26,7 @@ div(keep-scroll)
           rotate='false',
           ng-change='search.pageChange()'
         )
+
       .col-md-12(ng-if='search.type==="books"')
         .row
           .col-xs-12.col-sm-6.col-md-3.text-center(ng-repeat='book in search.items')

@@ -8,7 +8,10 @@ class SearchController {
 
   label;
   type;
+  cache;
   autoLoad;
+  infiniteScroll;
+
   url;
 
   query;
@@ -29,7 +32,10 @@ class SearchController {
 
     this.label = $scope.label;
     this.type = $scope.type;
+    this.cache = $scope.cache;
     this.autoLoad = $scope.autoLoad;
+    this.infiniteScroll = $scope.infiniteScroll;
+
     this.url = `/api/goodreads/${this.type}`;
 
     this.query = $state.params.q;
@@ -70,7 +76,7 @@ class SearchController {
         if (this.query || this.autoLoad) {
           this.$http.get(url, {
             params,
-            cache: true
+            cache: this.cache
           })
             .then(response => {
               this.items = response.data.items;
@@ -92,7 +98,9 @@ export default angular.module('soziziApp.search', [])
       scope: {
         label: '@',
         type: '@',
-        autoLoad: '@'
+        cache: '@',
+        autoLoad: '@',
+        infiniteScroll: '@'
       },
       template: require('./search.pug'),
       controller: SearchController,

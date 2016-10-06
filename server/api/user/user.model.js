@@ -35,21 +35,6 @@ var UserSchema = new Schema({
   },
   provider: String,
   salt: String,
-  quotes: [{
-    id: Number,
-    body: String,
-    date: Date,
-    book: {
-      id: Number,
-      title: String,
-      author: {
-        id: Number,
-        name: String
-      },
-      image_url: String,
-      small_image_url: String
-    }
-  }],
   goodreads: {
     id: Number,
     accessToken: String,

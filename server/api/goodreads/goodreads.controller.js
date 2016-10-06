@@ -5,6 +5,7 @@ import parser from 'xml2json';
 import request from 'request-promise';
 
 import User from '../user/user.model';
+import Quote from './models/quote.model';
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -39,9 +40,9 @@ export class books {
         }
       })
         .then(data => {
-          var search = data.GoodreadsResponse.search;
-          var books = _.transform(search.results.work, (result, value) => {
-              var book = value.best_book;
+          let search = data.GoodreadsResponse.search;
+          let books = _.transform(search.results.work, (result, value) => {
+              let book = value.best_book;
 
               result.push({
                 id: book.id.$t,
@@ -69,67 +70,64 @@ export class books {
 
 export class quotes {
   static show(req, res) {
-    User.findOne(
-      {'quotes.id': +req.params.id},
-      'name goodreads.id quotes.$'
-    )
+    Quote.findOne({'id': +req.params.id}, {'_id': 0})
       .then(handleEntityNotFound(res, 'Quote not found.'))
-      .then(user => res.json(user))
+      .then(quote => {
+        User.findOne({'goodreads.id': quote.userId}, 'name')
+          .then(user => {
+            let userName = user ? user.name : 'Unknown';
+            let data = _.assignIn(quote.toObject(), {userName});
+
+            res.json(data);
+          });
+      })
       .catch(handleError(res));
   }
 
   static search(req, res) {
     const perPage = 20;
 
-    var id = +req.params.id;
+    let q = new RegExp(req.query.q, 'i');
+    let page = req.query.page || 1;
+    let offset = perPage * (page - 1);
 
-    var q = new RegExp(req.query.q, 'i');
-    var page = req.query.page || 1;
-    var offset = perPage * (page - 1);
+    let id = req.params.id ? +req.params.id : req.user.goodreads.id;
 
-    if (!id && req.user) {
-      id = req.user.goodreads.id;
+    if (!id) {
+      return res.status(404).send('User not found.');
     }
 
-    id ? User.aggregate(
-      {$unwind: '$quotes'},
+    let cursor = Quote.find(
       {
-        $match: {
-          'goodreads.id': id,
-          $or: [
-            {'quotes.body': q},
-            {'quotes.book.title': q},
-            {'quotes.book.author.name': q}
-          ]
-        }
-      },
-      {$sort: {'quotes.date': -1}},
-      {$project: {'quotes': 1}}
+        'userId': id,
+        $or: [
+          {'body': q},
+          {'book.title': q},
+          {'book.author.name': q}
+        ]
+      }, {'_id': 0}
     )
-      .then(handleEntityNotFound(res, 'Not found.'))
+      .sort('-date')
+      .skip(offset)
+      .limit(perPage);
+
+    cursor.exec()
+      .then(handleEntityNotFound(res, 'Quote not found.'))
       .then(entity => {
-        User.findOne(entity._id, 'name')
-          .then(user => {
-            let all = _.transform(entity, (result, value) => result.push({
-              id: value.quotes.id,
-              date: value.quotes.date,
-              book: value.quotes.book,
-              body: _.truncate(value.quotes.body, {length: 140})
-            }), []);
+        let items = _.transform(entity, (result, value) =>
+          result.push(
+            _.merge(value, {
+              body: _.truncate(value.body, {length: 140})
+            })
+          ), []);
 
-            let name = user.name,
-              total = all.length,
-              items = all.slice(offset, offset + perPage);
-
-            res.json({name, items, total});
-          });
+        cursor.count().then(total => res.json({items, total}));
       })
-      .catch(handleError(res)) :
-      res.sendStatus(404);
+      .catch(handleError(res));
   }
 
   static add(req, res) {
-    var book = req.body.book,
+    let book = req.body.book,
       body = req.body.body,
       date = new Date();
 
@@ -154,12 +152,12 @@ export class quotes {
       }
     })
       .then(data => {
-        var id = data.quote.id.$t * 1;
+        let id = +data.quote.id.$t;
+        let userId = req.user.goodreads.id;
 
-        User.update(
-          {'_id': req.user.id, 'quotes.id': {$ne: id}},
-          {$addToSet: {'quotes': {id, body, book, date}}}
-        ).exec();
+        let quote = new Quote({id, userId, body, book, date});
+
+        quote.save();
 
         res.json({id});
       })
