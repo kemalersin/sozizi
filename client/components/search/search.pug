@@ -39,12 +39,13 @@ div(keep-scroll)
       .container
         .col-md-12(
           angular-grid='search.items',
+          ag-id='archive',
           ag-grid-width='300',
           ag-gutter-size='10',
           ag-performant-scroll='true',
-          ng-if='search.type==="quotes"'
+          ng-if='search.type==="archive"'
         )
-          .well.quote(ng-repeat='quote in search.items')
+          .well.quote(ng-repeat='quote in search.items track by $index')
             .media
               h4.media-heading
                 a.text-default(ui-sref='goodreads.book({id: quote.book.id})')

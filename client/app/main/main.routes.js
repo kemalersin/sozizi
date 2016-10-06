@@ -23,7 +23,7 @@ export default function routes($stateProvider) {
       url: '/archive/:userId?q&{page:int}',
       template: `
         <search
-          type="quotes",
+          type="archive",
           auto-load="true",
           label="Search quotes in archive" />
       `,

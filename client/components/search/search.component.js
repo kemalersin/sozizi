@@ -1,6 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
 import angular from 'angular';
 
 class SearchController {
@@ -55,19 +54,21 @@ class SearchController {
   }
 
   search(resetPage) {
-    var params = {
+    let url = this.url;
+
+    let params = {
       q: this.query,
       page: resetPage ? null : this.currentPage
     };
 
     if (this.userId) {
-      _.extend(params, {userId: this.userId});
+      url += `/${this.userId}`;
     }
 
     this.$state.go(this.$state.current.name, params, {notify: false})
       .then(() => {
         if (this.query || this.autoLoad) {
-          this.$http.get(this.url, {
+          this.$http.get(url, {
             params,
             cache: true
           })

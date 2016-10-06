@@ -70,7 +70,7 @@ export class books {
 export class quotes {
   static show(req, res) {
     User.findOne(
-      {'quotes.id': req.params.id},
+      {'quotes.id': +req.params.id},
       'name goodreads.id quotes.$'
     )
       .then(handleEntityNotFound(res, 'Quote not found.'))
@@ -81,45 +81,51 @@ export class quotes {
   static search(req, res) {
     const perPage = 20;
 
-    var userId = req.user.goodreads.id;
+    var id = +req.params.id;
 
     var q = new RegExp(req.query.q, 'i');
     var page = req.query.page || 1;
     var offset = perPage * (page - 1);
 
-    if (!userId && req.user) {
-      userId = req.user.goodreads.id;
+    if (!id && req.user) {
+      id = req.user.goodreads.id;
     }
 
-    userId ?
-      User.aggregate(
-        {$unwind: '$quotes'},
-        {
-          $match: {
-            'goodreads.id': userId,
-            $or: [
-              {'quotes.body': q},
-              {'quotes.book.title': q},
-              {'quotes.book.author.name': q}
-            ]
-          }
-        },
-        {$sort: {'quotes.date': -1}},
-        {$project: {'_id': 0, 'quotes': 1}}
-      )
-        .then(handleEntityNotFound(res, 'Not found.'))
-        .then(entity => {
-          let all = _.transform(entity, (result, value) => result.push({
-            id: value.quotes.id,
-            date: value.quotes.date,
-            book: value.quotes.book,
-            body: _.truncate(value.quotes.body, {length: 140})
-          }), []);
-          let total = all.length, items = all.slice(offset, offset + perPage);
+    id ? User.aggregate(
+      {$unwind: '$quotes'},
+      {
+        $match: {
+          'goodreads.id': id,
+          $or: [
+            {'quotes.body': q},
+            {'quotes.book.title': q},
+            {'quotes.book.author.name': q}
+          ]
+        }
+      },
+      {$sort: {'quotes.date': -1}},
+      {$project: {'quotes': 1}}
+    )
+      .then(handleEntityNotFound(res, 'Not found.'))
+      .then(entity => {
+        User.findOne(entity._id, 'name')
+          .then(user => {
+            let all = _.transform(entity, (result, value) => result.push({
+              id: value.quotes.id,
+              date: value.quotes.date,
+              book: value.quotes.book,
+              body: _.truncate(value.quotes.body, {length: 140})
+            }), []);
 
-          res.json({items, total});
-        })
-        .catch(handleError(res)) : res.sendStatus(401);
+            let name = user.name,
+              total = all.length,
+              items = all.slice(offset, offset + perPage);
+
+            res.json({name, items, total});
+          });
+      })
+      .catch(handleError(res)) :
+      res.sendStatus(404);
   }
 
   static add(req, res) {

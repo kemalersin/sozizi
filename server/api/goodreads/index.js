@@ -7,7 +7,8 @@ import * as auth from '../../auth/auth.service';
 var router = express.Router();
 
 router.get('/books', books.search);
-router.get('/quotes', auth.isAuthenticated(), quotes.search);
+router.get('/archive/:id', quotes.search);
+router.get('/archive', auth.isAuthenticated(), quotes.search);
 router.get('/quotes/:id', quotes.show);
 router.post('/quotes/add', auth.isAuthenticated(), quotes.add);
 
