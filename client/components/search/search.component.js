@@ -5,10 +5,11 @@ import angular from 'angular';
 class SearchController {
   $http;
   $state;
+  $window;
+  $cacheFactory;
 
   label;
   type;
-  cache;
   autoLoad;
   infiniteScroll;
 
@@ -24,11 +25,13 @@ class SearchController {
   maxSize;
   itemsPerPage;
 
-  constructor($scope, $http, $window, $state, appConfig) {
+  constructor($scope, $http, $window, $state, $cacheFactory, appConfig) {
     'ngInject';
 
     this.$http = $http;
     this.$state = $state;
+    this.$window = $window;
+    this.$cacheFactory = $cacheFactory;
 
     this.label = $scope.label;
     this.type = $scope.type;
@@ -43,10 +46,6 @@ class SearchController {
 
     this.maxSize = appConfig.VIEWABLE_PAGE_COUNT;
     this.itemsPerPage = appConfig.SEARCH_RESULTS_PER_PAGE;
-
-    this.cache = !(this.type === 'archive' && $window.refreshQuotes);
-
-    $window.refreshQuotes = false;
   }
 
   $onInit() {
@@ -77,12 +76,19 @@ class SearchController {
       url += `/${this.userId}`;
     }
 
+    if (this.type === 'archive' && this.$window.refreshQuotes) {
+      let httpCache = this.$cacheFactory.get('$http');
+
+      httpCache.remove(url);
+      this.$window.refreshQuotes = false;
+    }
+
     this.$state.go(this.$state.current.name, params, {notify: false})
       .then(() => {
         if (this.query || this.autoLoad) {
           this.$http.get(url, {
             params,
-            cache: this.cache
+            cache: true
           })
             .then(response => {
               this.items = response.data.items;
