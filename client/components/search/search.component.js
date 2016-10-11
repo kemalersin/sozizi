@@ -41,10 +41,12 @@ class SearchController {
     this.currentPage = $state.params.page;
     this.userId = $state.params.userId;
 
-    this.cache = !(this.type === 'archive' && $window.refreshQuotes);
-
     this.maxSize = appConfig.VIEWABLE_PAGE_COUNT;
     this.itemsPerPage = appConfig.SEARCH_RESULTS_PER_PAGE;
+
+    this.cache = !(this.type === 'archive' && $window.refreshQuotes);
+
+    $window.refreshQuotes = false;
   }
 
   $onInit() {

@@ -133,7 +133,7 @@ export class quotes {
 
     request({
       method: 'POST',
-      uri: `${GOODREADS_API_URL}/quotes?format=xml`,
+      uri: `${config.GOODREADS_API_URL}/quotes?format=xml`,
       oauth: {
         consumer_key: process.env.GOODREADS_ID,
         consumer_secret: process.env.GOODREADS_SECRET,
