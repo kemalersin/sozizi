@@ -4,6 +4,8 @@ import _ from 'lodash';
 import parser from 'xml2json';
 import request from 'request-promise';
 
+import config from '../../config/environment';
+
 import User from '../user/user.model';
 import Quote from './models/quote.model';
 
@@ -29,7 +31,7 @@ var handleEntityNotFound = (res, err) => {
 export class books {
   static search(req, res) {
       request({
-        uri: `${GOODREADS_API_URL}/search/index.xml`,
+        uri: `${config.GOODREADS_API_URL}/search/index.xml`,
         qs: {
           q: req.query.q,
           page: req.query.page || 1,
@@ -85,34 +87,32 @@ export class quotes {
   }
 
   static search(req, res) {
-    const perPage = 20;
-
     let q = new RegExp(req.query.q, 'i');
+
     let page = req.query.page || 1;
+    let perPage = config.SEARCH_RESULTS_PER_PAGE;
     let offset = perPage * (page - 1);
 
     let id = req.params.id ? +req.params.id : req.user.goodreads.id;
+
+    let filter = {
+      'userId': id,
+      $or: [
+        {'body': q},
+        {'book.title': q},
+        {'book.author.name': q}
+      ]
+    };
 
     if (!id) {
       return res.status(404).send('User not found.');
     }
 
-    let cursor = Quote.find(
-      {
-        'userId': id,
-        $or: [
-          {'body': q},
-          {'book.title': q},
-          {'book.author.name': q}
-        ]
-      }, {'_id': 0}
-    )
+    Quote.find(filter, {'_id': 0})
       .sort('-date')
       .skip(offset)
-      .limit(perPage);
-
-    cursor.exec()
-      .then(handleEntityNotFound(res, 'Quote not found.'))
+      .limit(perPage)
+      .then(handleEntityNotFound(res, 'Archive is empty.'))
       .then(entity => {
         let items = _.transform(entity, (result, value) =>
           result.push(
@@ -121,7 +121,7 @@ export class quotes {
             })
           ), []);
 
-        cursor.count().then(total => res.json({items, total}));
+        Quote.count(filter).then(total => res.json({items, total}));
       })
       .catch(handleError(res));
   }

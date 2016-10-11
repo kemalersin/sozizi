@@ -21,10 +21,10 @@ class SearchController {
   items;
   totalItems;
 
-  maxSize = 5;
-  itemsPerPage = 20;
+  maxSize;
+  itemsPerPage;
 
-  constructor($scope, $http, $state) {
+  constructor($scope, $http, $window, $state, appConfig) {
     'ngInject';
 
     this.$http = $http;
@@ -32,7 +32,6 @@ class SearchController {
 
     this.label = $scope.label;
     this.type = $scope.type;
-    this.cache = $scope.cache;
     this.autoLoad = $scope.autoLoad;
     this.infiniteScroll = $scope.infiniteScroll;
 
@@ -41,6 +40,11 @@ class SearchController {
     this.query = $state.params.q;
     this.currentPage = $state.params.page;
     this.userId = $state.params.userId;
+
+    this.cache = !(this.type === 'archive' && $window.refreshQuotes);
+
+    this.maxSize = appConfig.VIEWABLE_PAGE_COUNT;
+    this.itemsPerPage = appConfig.SEARCH_RESULTS_PER_PAGE;
   }
 
   $onInit() {
@@ -80,7 +84,7 @@ class SearchController {
           })
             .then(response => {
               this.items = response.data.items;
-              this.totalItems = response.data.total * 1;
+              this.totalItems = +response.data.total;
             });
         }
         else {
@@ -98,7 +102,6 @@ export default angular.module('soziziApp.search', [])
       scope: {
         label: '@',
         type: '@',
-        cache: '@',
         autoLoad: '@',
         infiniteScroll: '@'
       },

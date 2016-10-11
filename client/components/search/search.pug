@@ -11,8 +11,8 @@
     label(for='input-search')
       span.content Search
 
-div(keep-scroll)
-  .search-result
+div
+  #search-result
     .row
       .col-md-12
         ul.pagination-sm(
@@ -27,7 +27,7 @@ div(keep-scroll)
           ng-change='search.pageChange()'
         )
 
-      .col-md-12(ng-if='search.type==="books"')
+      .col-md-12(ng-if='search.type==="books"', keep-scroll)
         .row
           .col-xs-12.col-sm-6.col-md-3.text-center(ng-repeat='book in search.items')
             a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
@@ -37,14 +37,15 @@ div(keep-scroll)
                 p.book-title {{book.title}}
                 p.author {{book.author.name}}
 
-      .container
-        .col-md-12(
+      .col-md-12
+        .container(
           angular-grid='search.items',
           ag-id='archive',
           ag-grid-width='300',
           ag-gutter-size='10',
           ag-performant-scroll='true',
-          ng-if='search.type==="archive"'
+          ng-if='search.type==="archive"',
+          keep-scroll
         )
           .well.quote(ng-repeat='quote in search.items track by $index')
             .media

@@ -12,8 +12,7 @@ export default function routes($stateProvider) {
       template: `
         <search
           type="books"
-          label="Find books on Goodreads"
-          cache="true" />
+          label="Find books on Goodreads" />
       `,
       params: {
         q: null,

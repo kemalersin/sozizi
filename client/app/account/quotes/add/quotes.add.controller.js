@@ -4,18 +4,22 @@
 export default class AddQuoteController {
   $http;
   $state;
+  $window;
 
   ngNotify;
 
   book;
   body;
 
-  constructor($http, $state, $cookies, ngNotify) {
+  constructor($http, $window, $state, $cookies, ngNotify) {
     'ngInject'
 
     this.$http = $http;
+    this.$window = $window;
     this.$state = $state;
+
     this.ngNotify = ngNotify;
+
     this.book = $state.params.book || $cookies.getObject('lastBook');
 
     if (!this.book) {
@@ -36,6 +40,8 @@ export default class AddQuoteController {
       body: this.body
     }).then(response => {
       let url = this.$state.href('quotes.show', {id: response.data.id}, {absolute: true});
+
+      this.$window.refreshQuotes = true;
 
       this.body = null;
       this.ngNotify.set(
