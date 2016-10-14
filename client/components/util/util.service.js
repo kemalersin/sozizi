@@ -37,17 +37,21 @@ export function UtilService($window, $injector) {
       return origins.length >= 1;
     },
 
-    deleteQuote(id) {
+    removeQuote(id) {
       let $http = $injector.get('$http');
       let $state = $injector.get('$state');
       let ngNotify = $injector.get('ngNotify');
 
-      $http.post('/api/goodreads/quotes/delete', {id})
-        .then(response => {
+      $http.delete(`/api/goodreads/quotes/${id}`)
+        .success((data, status, headers) => {
           $window.refreshQuotes = true;
 
           $state.reload();
-          ngNotify.set('Quote successfully deleted from Sozizi archive.', {type: 'success', duration: 1000});
+
+          ngNotify.set(
+            'Quote successfully removed from Sozizi archive.',
+            {type: 'success', duration: 1000}
+          );
         });
     }
   };

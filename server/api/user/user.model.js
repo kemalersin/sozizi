@@ -42,11 +42,6 @@ var UserSchema = new Schema({
   }
 });
 
-/**
- * Virtuals
- */
-
-// Public profile information
 UserSchema
   .virtual('profile')
   .get(function() {
@@ -56,7 +51,6 @@ UserSchema
     };
   });
 
-// Non-sensitive info we'll be putting in the token
 UserSchema
   .virtual('token')
   .get(function() {
@@ -66,11 +60,6 @@ UserSchema
     };
   });
 
-/**
- * Validations
- */
-
-// Validate empty email
 UserSchema
   .path('email')
   .validate(function(email) {
@@ -80,7 +69,6 @@ UserSchema
     return email.length;
   }, 'Email cannot be blank');
 
-// Validate empty password
 UserSchema
   .path('password')
   .validate(function(password) {
@@ -90,7 +78,6 @@ UserSchema
     return password.length;
   }, 'Password cannot be blank');
 
-// Validate email is not taken
 UserSchema
   .path('email')
   .validate(function(value, respond) {
@@ -117,12 +104,8 @@ var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
-/**
- * Pre-save hook
- */
 UserSchema
   .pre('save', function(next) {
-    // Handle new/update passwords
     if(!this.isModified('password')) {
       return next();
     }
@@ -135,7 +118,6 @@ UserSchema
       }
     }
 
-    // Make salt with a callback
     this.makeSalt((saltErr, salt) => {
       if(saltErr) {
         return next(saltErr);
@@ -151,18 +133,7 @@ UserSchema
     });
   });
 
-/**
- * Methods
- */
 UserSchema.methods = {
-  /**
-   * Authenticate - check if the passwords are the same
-   *
-   * @param {String} password
-   * @param {Function} callback
-   * @return {Boolean}
-   * @api public
-   */
   authenticate(password, callback) {
     if(!callback) {
       return this.password === this.encryptPassword(password);
@@ -181,14 +152,6 @@ UserSchema.methods = {
     });
   },
 
-  /**
-   * Make salt
-   *
-   * @param {Number} [byteSize] - Optional salt byte size, default to 16
-   * @param {Function} callback
-   * @return {String}
-   * @api public
-   */
   makeSalt(byteSize, callback) {
     var defaultByteSize = 16;
 
@@ -214,14 +177,6 @@ UserSchema.methods = {
     });
   },
 
-  /**
-   * Encrypt password
-   *
-   * @param {String} password
-   * @param {Function} callback
-   * @return {String}
-   * @api public
-   */
   encryptPassword(password, callback) {
     if(!password || !this.salt) {
       if(!callback) {

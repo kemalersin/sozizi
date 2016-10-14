@@ -45,10 +45,10 @@
         ag-performant-scroll='true'
       )
         article(ng-repeat='quote in search.items track by $index')
-          .well
+          .well.quote
             .media
               h4.media-heading
-                a.btn.box-delete.text-muted(ng-if='search.ownered', ng-click='search.utils.deleteQuote(quote.id)')
+                a.btn.box-delete.text-muted(ng-if='search.ownered', ng-click='search.utils.removeQuote(quote.id)')
                 span.text-default(title='{{quote.book.title}}') {{quote.book.title}}
               p.text-default {{quote.book.author.name}}
               blockquote

@@ -35,7 +35,7 @@ export default class AddQuoteController {
   }
 
   submit() {
-    this.$http.post('/api/goodreads/quotes/add', {
+    this.$http.post('/api/goodreads/quotes', {
       book: this.book,
       body: this.body
     }).then(response => {

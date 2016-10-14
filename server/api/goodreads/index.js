@@ -9,8 +9,8 @@ var router = express.Router();
 router.get('/books', books.search);
 router.get('/archive/:id', quotes.search);
 router.get('/archive', auth.isAuthenticated(), quotes.search);
-router.get('/quotes/:id', quotes.show);
-router.post('/quotes/add', auth.isAuthenticated(), quotes.add);
-router.post('/quotes/delete', auth.isAuthenticated(), quotes.delete);
+router.get('/quotes/:id', quotes.read);
+router.post('/quotes', auth.isAuthenticated(), quotes.create);
+router.delete('/quotes/:id', auth.isAuthenticated(), quotes.destroy);
 
 module.exports = router;

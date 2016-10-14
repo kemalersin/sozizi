@@ -71,21 +71,6 @@ export class books {
 }
 
 export class quotes {
-  static show(req, res) {
-    Quote.findOne({'id': +req.params.id}, {'_id': 0})
-      .then(handleEntityNotFound(res, 'Quote not found.'))
-      .then(quote => {
-        User.findOne({'goodreads.id': quote.userId}, 'name')
-          .then(user => {
-            let userName = user ? user.name : 'Unknown';
-            let data = _.assignIn(quote.toObject(), {userName});
-
-            res.json(data);
-          });
-      })
-      .catch(handleError(res));
-  }
-
   static search(req, res) {
     let q = new RegExp(req.query.q, 'i');
 
@@ -127,7 +112,7 @@ export class quotes {
       .catch(handleError(res)); //
   }
 
-  static add(req, res) {
+  static create(req, res) {
     let book = req.body.book,
       body = req.body.body,
       date = new Date();
@@ -165,9 +150,24 @@ export class quotes {
       .catch(handleError(res));
   }
 
-  static delete(req, res) {
+  static read(req, res) {
+    Quote.findOne({'id': +req.params.id}, {'_id': 0})
+      .then(handleEntityNotFound(res, 'Quote not found.'))
+      .then(quote => {
+        User.findOne({'goodreads.id': quote.userId}, 'name')
+          .then(user => {
+            let userName = user ? user.name : 'Unknown';
+            let data = _.assignIn(quote.toObject(), {userName});
+
+            res.json(data);
+          });
+      })
+      .catch(handleError(res));
+  }
+
+  static destroy(req, res) {
     Quote.findOneAndRemove({
-      'id': req.body.id,
+      'id': +req.params.id,
       'userId': req.user.goodreads.id
     })
       .then(handleEntityNotFound(res, 'Quote not found.'))
