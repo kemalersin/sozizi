@@ -9,14 +9,11 @@ import ngSanitize from 'angular-sanitize';
 
 import angularGrid from 'angulargrid';
 import loadingBar from 'angular-loading-bar';
-import '../assets/js/update-meta.min';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 
-import {
-  routeConfig
-} from './app.config';
+import {routeConfig} from './app.config';
 
 import _Auth from '../components/auth/auth.module';
 
@@ -30,14 +27,13 @@ import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 
-import 'ng-notify';
-import 'angular-moment';
 
+import 'angular-backtop';
 import './app.scss';
 
 angular.module('soziziApp', [ngAnimate, ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
     navbar, search, oAuth, footer, account, main, constants, util, angularGrid, loadingBar,
-    'updateMeta', 'ngNotify', 'angularMoment'
+    'updateMeta', 'ngNotify', 'headroom', 'angularMoment', 'angular.backtop'
 ])
   .config(routeConfig)
   .directive('a', function() {
@@ -65,10 +61,12 @@ angular.module('soziziApp', [ngAnimate, ngCookies, ngResource, ngSanitize, uiRou
       }
     }
   })
-  .run(function($rootScope, $window, $state, Auth, amMoment) {
+  .run(function($rootScope, $window, $state, Auth, Util, amMoment) {
     'ngInject';
 
     amMoment.changeLocale('en');
+
+    $rootScope.utils = Util;
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
       Auth.isLoggedIn(function(loggedIn) {

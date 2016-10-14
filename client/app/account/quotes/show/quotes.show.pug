@@ -12,7 +12,7 @@ update-meta(property='og:description' content='{{quote.description}}')
   .media
     img.media-object(src='{{quote.data.book.image_url}}')
     h3.media-heading
-      a.text-default(ui-sref='goodreads.book({id: quote.data.book.id})')
+      a.text-default(title='{{quote.data.book.title}}', ui-sref='goodreads.book({id: quote.data.book.id})')
         | {{quote.data.book.title}}
     p
       a.text-default(ui-sref='goodreads.author({id: quote.data.book.author.id})')

@@ -11,5 +11,6 @@ router.get('/archive/:id', quotes.search);
 router.get('/archive', auth.isAuthenticated(), quotes.search);
 router.get('/quotes/:id', quotes.show);
 router.post('/quotes/add', auth.isAuthenticated(), quotes.add);
+router.post('/quotes/delete', auth.isAuthenticated(), quotes.delete);
 
 module.exports = router;

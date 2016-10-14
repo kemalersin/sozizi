@@ -1,6 +1,12 @@
 .quote {
   padding-bottom: 30px;
 
+  .media-heading {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   img {
     display: block;
     float: left;

@@ -1,8 +1,10 @@
 $icon-font-path: '/assets/fonts/bootstrap/';
 $fa-font-path: '/assets/fonts/font-awesome/';
+
 @import '~font-awesome/scss/font-awesome';
 @import '../assets/css/ng-notify.min.css';
 @import '../assets/css/loading-bar.min.css';
+@import '../assets/css/angular-backtop.css';
 @import '../assets/css/bootstrap.readable.min.css';
 
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);

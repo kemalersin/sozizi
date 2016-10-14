@@ -9,7 +9,7 @@ import config from '../../config/environment';
 import User from '../user/user.model';
 import Quote from './models/quote.model';
 
-function handleError(res, statusCode) {
+let handleError = (res, statusCode) => {
   statusCode = statusCode || 500;
 
   return function (err) {
@@ -17,7 +17,7 @@ function handleError(res, statusCode) {
   };
 }
 
-var handleEntityNotFound = (res, err) => {
+let handleEntityNotFound = (res, err) => {
   return entity => {
     if (!entity) {
       res.status(404).send(err);
@@ -93,7 +93,8 @@ export class quotes {
     let perPage = config.SEARCH_RESULTS_PER_PAGE;
     let offset = perPage * (page - 1);
 
-    let id = req.params.id ? +req.params.id : req.user.goodreads.id;
+    let ownered =_.isUndefined(req.params.id);
+    let id = ownered ? req.user.goodreads.id : +req.params.id;
 
     let filter = {
       'userId': id,
@@ -121,9 +122,9 @@ export class quotes {
             })
           ), []);
 
-        Quote.count(filter).then(total => res.json({items, total}));
+        Quote.count(filter).then(total => res.json({items, total, ownered}));
       })
-      .catch(handleError(res));
+      .catch(handleError(res)); //
   }
 
   static add(req, res) {
@@ -161,6 +162,16 @@ export class quotes {
 
         res.json({id});
       })
+      .catch(handleError(res));
+  }
+
+  static delete(req, res) {
+    Quote.findOneAndRemove({
+      'id': req.body.id,
+      'userId': req.user.goodreads.id
+    })
+      .then(handleEntityNotFound(res, 'Quote not found.'))
+      .then(() => res.sendStatus(200))
       .catch(handleError(res));
   }
 }

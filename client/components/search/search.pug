@@ -11,50 +11,46 @@
     label(for='input-search')
       span.content Search
 
-div
-  #search-result
-    .row
-      .col-md-12
-        ul.pagination-sm(
-          uib-pagination,
-          ng-if='search.totalItems',
-          total-items='search.totalItems',
-          ng-model='search.currentPage',
-          max-size='search.maxSize',
-          items-per-page='search.itemsPerPage',
-          boundary-link-numbers='true',
-          rotate='false',
-          ng-change='search.pageChange()'
-        )
+#search-result
+  .row
+    .col-md-12
+      ul.pagination-sm(
+        uib-pagination,
+        ng-if='search.totalItems',
+        total-items='search.totalItems',
+        ng-model='search.currentPage',
+        max-size='search.maxSize',
+        items-per-page='search.itemsPerPage',
+        boundary-link-numbers='true',
+        rotate='false',
+        ng-change='search.pageChange()'
+      )
 
-      .col-md-12(ng-if='search.type==="books"', keep-scroll)
-        .row
-          .col-xs-12.col-sm-6.col-md-3.text-center(ng-repeat='book in search.items')
-            a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
-              span.img-wrapper
-                img(src='{{book.image_url}}')
-              .caption
-                p.book-title {{book.title}}
-                p.author {{book.author.name}}
+    .col-md-12(ng-if='search.type==="books"', keep-scroll)
+      .row
+        .col-xs-12.col-sm-6.col-md-3.text-center(ng-repeat='book in search.items')
+          a.thumbnail.book-image(title='{{book.title}}', ui-sref='quotes.add({book})')
+            span.img-wrapper
+              img(src='{{book.image_url}}')
+            .caption
+              p.book-title {{book.title}}
+              p.author {{book.author.name}}
 
-      .col-md-12
-        .container(
-          angular-grid='search.items',
-          ag-id='archive',
-          ag-grid-width='300',
-          ag-gutter-size='10',
-          ag-performant-scroll='true',
-          ng-if='search.type==="archive"',
-          keep-scroll
-        )
-          .well.quote(ng-repeat='quote in search.items track by $index')
+    .col-md-12(ng-if='search.type==="archive"', keep-scroll)
+      .container(
+        angular-grid='search.items',
+        ag-id='archive',
+        ag-grid-width='300',
+        ag-gutter-size='30',
+        ag-performant-scroll='true'
+      )
+        article(ng-repeat='quote in search.items track by $index')
+          .well
             .media
               h4.media-heading
-                a.text-default(ui-sref='goodreads.book({id: quote.book.id})')
-                  | {{quote.book.title}}
-              p
-                a.text-default(ui-sref='goodreads.author({id: quote.book.author.id})')
-                  | {{quote.book.author.name}}
+                a.btn.box-delete.text-muted(ng-if='search.ownered', ng-click='search.utils.deleteQuote(quote.id)')
+                span.text-default(title='{{quote.book.title}}') {{quote.book.title}}
+              p.text-default {{quote.book.author.name}}
               blockquote
                 | {{quote.body}}
                 p
@@ -63,3 +59,9 @@ div
                   i.glyphicon.glyphicon-time
                   | &nbsp;
                   span(am-time-ago='quote.date')
+
+back-top(
+  scroll-speed=600,
+  button-theme='light',
+  button-text='Take me back'
+)

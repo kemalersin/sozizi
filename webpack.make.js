@@ -51,11 +51,16 @@ module.exports = function makeWebpackConfig(options) {
 
                 'angular-ui-bootstrap',
                 'angular-ui-router',
+
+                'angular-backtop',
                 'angular-loading-bar',
                 'angular-moment',
                 'angulargrid',
                 'lodash',
-                'ng-notify'
+                'ng-notify',
+
+                'headroom.js/dist/angular.headroom.min',
+                'angular-update-meta/dist/update-meta.min',
             ]
         };
     }

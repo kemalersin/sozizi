@@ -9,11 +9,7 @@ export default function routes($stateProvider) {
   })
     .state('search', {
       url: '/search?q&{page:int}',
-      template: `
-        <search
-          type="books"
-          label="Find books on Goodreads" />
-      `,
+      template: '<search type="books" label="Find books on Goodreads" />',
       params: {
         q: null,
         page: null
@@ -21,13 +17,7 @@ export default function routes($stateProvider) {
     })
     .state('archive', {
       url: '/archive/:userId?q&{page:int}',
-      template: `
-        <search
-          type="archive"
-          auto-load="true"
-          infinite-scroll="true"
-          label="Search quotes in archive" />
-      `,
+      template: '<search type="archive" label="Search quotes in archive" auto-load="true" />',
       params: {
         userId: {
           value: null,

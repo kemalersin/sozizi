@@ -8,24 +8,21 @@ class SearchController {
   $window;
   $cacheFactory;
 
-  label;
-  type;
-  autoLoad;
-  infiniteScroll;
-
   url;
+  utils;
 
   query;
   userId;
   currentPage;
 
   items;
+  ownered;
   totalItems;
 
   maxSize;
   itemsPerPage;
 
-  constructor($scope, $http, $window, $state, $cacheFactory, appConfig) {
+  constructor($http, $window, $state, $rootScope, $cacheFactory, appConfig) {
     'ngInject';
 
     this.$http = $http;
@@ -33,11 +30,7 @@ class SearchController {
     this.$window = $window;
     this.$cacheFactory = $cacheFactory;
 
-    this.label = $scope.label;
-    this.type = $scope.type;
-    this.autoLoad = $scope.autoLoad;
-    this.infiniteScroll = $scope.infiniteScroll;
-
+    this.utils = $rootScope.utils;
     this.url = `/api/goodreads/${this.type}`;
 
     this.query = $state.params.q;
@@ -49,6 +42,17 @@ class SearchController {
   }
 
   $onInit() {
+    if (this.userId) {
+      this.url += `/${this.userId}`;
+    }
+
+    if (this.type === 'archive' && this.$window.refreshQuotes) {
+      let httpCache = this.$cacheFactory.get('$http');
+
+      httpCache.remove(this.url);
+      this.$window.refreshQuotes = false;
+    }
+
     this.search();
   }
 
@@ -65,33 +69,21 @@ class SearchController {
   }
 
   search(resetPage) {
-    let url = this.url;
-
     let params = {
       q: this.query,
       page: resetPage ? null : this.currentPage
     };
 
-    if (this.userId) {
-      url += `/${this.userId}`;
-    }
-
-    if (this.type === 'archive' && this.$window.refreshQuotes) {
-      let httpCache = this.$cacheFactory.get('$http');
-
-      httpCache.remove(url);
-      this.$window.refreshQuotes = false;
-    }
-
     this.$state.go(this.$state.current.name, params, {notify: false})
       .then(() => {
         if (this.query || this.autoLoad) {
-          this.$http.get(url, {
+          this.$http.get(this.url, {
             params,
             cache: true
           })
             .then(response => {
               this.items = response.data.items;
+              this.ownered = response.data.ownered;
               this.totalItems = +response.data.total;
             });
         }
@@ -104,18 +96,14 @@ class SearchController {
 }
 
 export default angular.module('soziziApp.search', [])
-  .directive('search', function () {
-    return {
-      restrict: 'E',
-      scope: {
-        label: '@',
-        type: '@',
-        autoLoad: '@',
-        infiniteScroll: '@'
-      },
-      template: require('./search.pug'),
-      controller: SearchController,
-      controllerAs: 'search'
-    };
+  .component('search', {
+    bindings: {
+      label: '@',
+      type: '@',
+      autoLoad: '@'
+    },
+    template: require('./search.pug'),
+    controller: SearchController,
+    controllerAs: 'search'
   })
   .name;

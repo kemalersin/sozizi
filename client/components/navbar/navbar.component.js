@@ -4,8 +4,6 @@
 import angular from 'angular';
 
 class NavbarComponent {
-  $state;
-
   menu = [{
     'title': 'Home',
     'state': 'main'

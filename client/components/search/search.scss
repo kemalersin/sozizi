@@ -105,11 +105,11 @@ $thumb-height: 140px;
 #search-result {
   margin-top: 20px;
 
-  p.book-title {
+  .book-title {
     font-weight: bold;
   }
 
-  p.book-title, p.author {
+  .book-title, .author {
     width: 100%;
     margin-bottom: 0;
     overflow: hidden;
