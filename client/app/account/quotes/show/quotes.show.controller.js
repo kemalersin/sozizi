@@ -43,12 +43,17 @@ export default class ShowQuoteController {
 
   share() {
     FB.ui({
-      method: 'feed',
-      name: this.title,
-      link: this.url,
-      picture: this.image,
-      caption: this.title,
-      description: this.description
+      method: 'share_open_graph',
+      action_type: 'og.shares',
+      action_properties: JSON.stringify({
+        object: {
+          'og:url': this.url,
+          'og:title': this.title,
+          'og:site_name': this.title,
+          'og:description': this.description,
+          'og:image': this.image
+        }
+      })
     });
   }
 }

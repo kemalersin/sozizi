@@ -5,8 +5,8 @@ update-meta(property='og:description' content='{{quote.description}}')
 
 .container(ng-if='quote.notFound')
   .row
-    .col-md-12.text-center
-      h1 Redirecting...
+  .col-md-12.text-center
+    h1 Redirecting...
 
 .jumbotron.quote(ng-if='!quote.notFound && quote.initalized')
   .media

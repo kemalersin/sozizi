@@ -6,6 +6,6 @@
     form(ng-submit='quote.submit()')
       .form-group
         textarea#quote-body.form-control(autofocus, ng-required='true', ng-model='quote.body', ng-maxlength=4000, rows=10)
-      .btn-toolbar.pull-right
-        button.btn.btn-primary(type='submit') Save
-        button.btn.btn-default(type='button', ng-click='quote.goBack()') Cancel
+          .btn-toolbar.pull-right
+            button.btn.btn-primary(type='submit') Save
+            button.btn.btn-default(type='button', ng-click='quote.goBack()') Cancel
